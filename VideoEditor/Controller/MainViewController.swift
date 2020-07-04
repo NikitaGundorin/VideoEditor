@@ -14,9 +14,10 @@ import GPUImage
 class MainViewController: UIViewController {
     @IBOutlet private weak var shareButton: UIButton!
     @IBOutlet private weak var playerView: GPUImageView!
-    @IBOutlet weak var noVideoLabel: UILabel!
+    @IBOutlet private weak var noVideoLabel: UILabel!
     @IBOutlet private weak var addVideoButton: UIButton!
     @IBOutlet private weak var addMusicButton: UIButton!
+    @IBOutlet private weak var chooseFilterLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     private lazy var imagePickerController: UIImagePickerController = {
         let ipc = UIImagePickerController()
@@ -31,6 +32,8 @@ class MainViewController: UIViewController {
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var playerLayer: AVPlayerLayer?
+    private var gpuMovie: GPUImageMovie?
+    private var filters = FiltersFabric.getFilters()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +43,13 @@ class MainViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
-    private func setupLayout() {
-        shareButton.alpha = 0
+    
+    private func setupLayout(hideElements: Bool = true) {
+        let alpha: CGFloat = hideElements ? 0 : 1
+        shareButton.alpha = alpha
+        collectionView.alpha = alpha
+        chooseFilterLabel.alpha = alpha
+        addMusicButton.alpha = alpha
     }
     
     @IBAction func addVideoTapped(_ sender: Any) {
@@ -52,13 +59,16 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //apply filter
+        guard let gpuMovie = gpuMovie else { return }
+        filters[indexPath.item].apply(forVideo: gpuMovie, withVideoView: playerView)
+        player?.seek(to: CMTime.zero)
+        player?.play()
     }
 }
 
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10 //filters count
+        return filters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,14 +88,14 @@ extension MainViewController: UIImagePickerControllerDelegate & UINavigationCont
             movieAsset = AVURLAsset(url: url)
             playerItem = AVPlayerItem(asset: movieAsset!)
             player = AVPlayer(playerItem: playerItem)
-            playerLayer = AVPlayerLayer(player: player)
-            playerLayer?.videoGravity = .resizeAspect
-            playerLayer?.frame = playerView.bounds
-            playerView?.layer.addSublayer(playerLayer!)
+            gpuMovie = GPUImageMovie(playerItem: playerItem)
+            gpuMovie?.removeAllTargets()
+            gpuMovie?.addTarget(playerView)
+            gpuMovie?.startProcessing()
             player?.play()
             noVideoLabel.alpha = 0
             playerView.backgroundColor = .clear
-            shareButton.alpha = 1
+            setupLayout(hideElements: false)
         }
         imagePickerController.dismiss(animated: true, completion: nil)
     }

@@ -141,6 +141,7 @@
                     <connections>
                         <outlet property="addMusicButton" destination="X7U-MS-lVd" id="NUW-NM-cNw"/>
                         <outlet property="addVideoButton" destination="0RI-Np-9pE" id="MKC-fT-d1x"/>
+                        <outlet property="chooseFilterLabel" destination="isn-ri-wPY" id="a52-ex-TLZ"/>
                         <outlet property="collectionView" destination="NIR-XY-nQj" id="ekA-tv-QeU"/>
                         <outlet property="noVideoLabel" destination="Rho-P9-kpr" id="RUl-YD-iZe"/>
                         <outlet property="playerView" destination="lkG-Zh-lGr" id="CQ2-Ix-fld"/>
