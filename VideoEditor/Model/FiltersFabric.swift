@@ -26,7 +26,7 @@ class FiltersFabric {
         
         let vignette = GPUImageVignetteFilter()
         
-        let cga = GroupFilter(name: "SGA", gpuFilters: [
+        let cga = GroupFilter(name: "CGA", gpuFilters: [
             cGAColorspaceFilter,
             vignette
         ])
@@ -37,7 +37,7 @@ class FiltersFabric {
             scetch,
             cga
         ]
-        
+
         return filters
     }
 }
