@@ -21,7 +21,7 @@
                                 <rect key="frame" x="363" y="44" width="31" height="31"/>
                                 <state key="normal" image="export"/>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkG-Zh-lGr">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkG-Zh-lGr" customClass="GPUImageView">
                                 <rect key="frame" x="0.0" y="95" width="414" height="433"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>

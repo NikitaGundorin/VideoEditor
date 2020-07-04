@@ -9,10 +9,11 @@
 import UIKit
 import AVFoundation
 import MobileCoreServices
+import GPUImage
 
 class MainViewController: UIViewController {
     @IBOutlet private weak var shareButton: UIButton!
-    @IBOutlet private weak var playerView: UIView!
+    @IBOutlet private weak var playerView: GPUImageView!
     @IBOutlet weak var noVideoLabel: UILabel!
     @IBOutlet private weak var addVideoButton: UIButton!
     @IBOutlet private weak var addMusicButton: UIButton!

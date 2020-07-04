@@ -12,6 +12,8 @@
 		7272423224B0C969001B3AE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7272423024B0C969001B3AE3 /* Main.storyboard */; };
 		7272423424B0C96C001B3AE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7272423324B0C96C001B3AE3 /* Assets.xcassets */; };
 		7272423724B0C96C001B3AE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7272423524B0C96C001B3AE3 /* LaunchScreen.storyboard */; };
+		72D943E424B0E8E000BF7E4C /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D943E324B0E8E000BF7E4C /* GPUImage.framework */; };
+		72D943E624B0E8F800BF7E4C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D943E524B0E8F800BF7E4C /* Filter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		7272423324B0C96C001B3AE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7272423624B0C96C001B3AE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7272423824B0C96C001B3AE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72D943E324B0E8E000BF7E4C /* GPUImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GPUImage.framework; path = Carthage/Build/iOS/GPUImage.framework; sourceTree = "<group>"; };
+		72D943E524B0E8F800BF7E4C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72D943E424B0E8E000BF7E4C /* GPUImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,7 @@
 			children = (
 				7272422924B0C969001B3AE3 /* VideoEditor */,
 				7272422824B0C969001B3AE3 /* Products */,
+				72D943E224B0E8E000BF7E4C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +60,7 @@
 		7272422924B0C969001B3AE3 /* VideoEditor */ = {
 			isa = PBXGroup;
 			children = (
+				72D943D124B0E56700BF7E4C /* Model */,
 				7272425324B0D364001B3AE3 /* View */,
 				7272425424B0D36D001B3AE3 /* Controller */,
 				7272425524B0D37E001B3AE3 /* Supporting Files */,
@@ -88,6 +95,22 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		72D943D124B0E56700BF7E4C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				72D943E524B0E8F800BF7E4C /* Filter.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		72D943E224B0E8E000BF7E4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				72D943E324B0E8E000BF7E4C /* GPUImage.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -98,6 +121,7 @@
 				7272422324B0C969001B3AE3 /* Sources */,
 				7272422424B0C969001B3AE3 /* Frameworks */,
 				7272422524B0C969001B3AE3 /* Resources */,
+				72D943E124B0E73800BF7E4C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -154,12 +178,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		72D943E124B0E73800BF7E4C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/GPUImage.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7272422324B0C969001B3AE3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7272422F24B0C969001B3AE3 /* MainViewController.swift in Sources */,
+				72D943E624B0E8F800BF7E4C /* Filter.swift in Sources */,
 				7272422B24B0C969001B3AE3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +352,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T6696YN386;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "VideoEditor/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -325,6 +375,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T6696YN386;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "VideoEditor/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
