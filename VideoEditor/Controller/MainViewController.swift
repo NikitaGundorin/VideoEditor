@@ -8,13 +8,28 @@
 
 import UIKit
 import AVFoundation
+import MobileCoreServices
 
 class MainViewController: UIViewController {
     @IBOutlet private weak var shareButton: UIButton!
-    @IBOutlet private weak var player: AVPlayer!
+    @IBOutlet private weak var playerView: UIView!
+    @IBOutlet weak var noVideoLabel: UILabel!
     @IBOutlet private weak var addVideoButton: UIButton!
     @IBOutlet private weak var addMusicButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
+    private lazy var imagePickerController: UIImagePickerController = {
+        let ipc = UIImagePickerController()
+        ipc.sourceType = .photoLibrary
+        ipc.mediaTypes = [kUTTypeMovie as String, kUTTypeVideo as String]
+        ipc.delegate = self
+        ipc.videoExportPreset = AVAssetExportPresetPassthrough
+        return ipc
+    }()
+    private var movieURL: URL?
+    private var movieAsset: AVURLAsset?
+    private var player: AVPlayer?
+    private var playerItem: AVPlayerItem?
+    private var playerLayer: AVPlayerLayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +42,10 @@ class MainViewController: UIViewController {
 
     private func setupLayout() {
         shareButton.alpha = 0
+    }
+    
+    @IBAction func addVideoTapped(_ sender: Any) {
+        present(imagePickerController, animated: true, completion: nil)
     }
 }
 
@@ -47,3 +66,27 @@ extension MainViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+extension MainViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let url = info[.mediaURL] as? URL {
+            player?.pause()
+            playerLayer?.removeFromSuperlayer()
+            movieURL = url
+            movieAsset = AVURLAsset(url: url)
+            playerItem = AVPlayerItem(asset: movieAsset!)
+            player = AVPlayer(playerItem: playerItem)
+            playerLayer = AVPlayerLayer(player: player)
+            playerLayer?.videoGravity = .resizeAspect
+            playerLayer?.frame = playerView.bounds
+            playerView?.layer.addSublayer(playerLayer!)
+            player?.play()
+            noVideoLabel.alpha = 0
+            playerView.backgroundColor = .clear
+            shareButton.alpha = 1
+        }
+        imagePickerController.dismiss(animated: true, completion: nil)
+    }
+}
+
