@@ -55,6 +55,9 @@
                                         <state key="normal" title="Add music">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="addMusicTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aPk-sp-hwB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

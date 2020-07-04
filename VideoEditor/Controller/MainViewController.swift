@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import MobileCoreServices
 import GPUImage
+import MediaPlayer
 
 class MainViewController: UIViewController {
     @IBOutlet private weak var shareButton: UIButton!
@@ -27,8 +28,17 @@ class MainViewController: UIViewController {
         ipc.videoExportPreset = AVAssetExportPresetPassthrough
         return ipc
     }()
+    private lazy var mediaPicker: MPMediaPickerController = {
+        let mpc = MPMediaPickerController(mediaTypes: .music)
+        mpc.showsItemsWithProtectedAssets = false
+        mpc.showsCloudItems = false
+        mpc.allowsPickingMultipleItems = false
+        mpc.delegate = self
+        return mpc
+    }()
     private var movieURL: URL?
-    private var movieAsset: AVURLAsset?
+    private var movieAsset: AVAsset?
+    private var audioAsset: AVAsset?
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var playerLayer: AVPlayerLayer?
@@ -45,8 +55,8 @@ class MainViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
                                                object: player?.currentItem,
                                                queue: .main) { [weak self] _ in
-            self?.player?.seek(to: CMTime.zero)
-            self?.player?.play()
+                                                self?.player?.seek(to: CMTime.zero)
+                                                self?.player?.play()
         }
     }
     
@@ -77,7 +87,7 @@ class MainViewController: UIViewController {
             let cgFrame = try assetIG.copyCGImage(at: cmTime, actualTime: nil)
             previewImage = UIImage(cgImage: cgFrame)
         } catch {
-            print("Error while getting frame")
+            handleError()
         }
         var previewImages = [UIImage?]()
         filters.forEach {
@@ -87,8 +97,66 @@ class MainViewController: UIViewController {
         collectionView.reloadData()
     }
     
-    @IBAction func addVideoTapped(_ sender: Any) {
+    private func updatePlayer() {
+        guard let asset = movieAsset else { return }
+        player?.pause()
+        playerLayer?.removeFromSuperlayer()
+        playerItem = AVPlayerItem(asset: asset)
+        player = AVPlayer(playerItem: playerItem)
+        gpuMovie = GPUImageMovie(playerItem: playerItem)
+        if let indexPath = checkedCell {
+            filters[indexPath.item].apply(forVideo: gpuMovie!, withVideoView: playerView)
+        } else {
+            gpuMovie?.addTarget(playerView)
+            gpuMovie?.startProcessing()
+        }
+        player?.play()
+    }
+    
+    private func addAudio() {
+        guard let movieAsset = movieAsset else { return }
+        let mixComposition = AVMutableComposition()
+        guard let firstTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.video,
+                                                              preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+            else { return }
+        
+        do {
+            try firstTrack.insertTimeRange(CMTimeRangeMake(start: .zero, duration: movieAsset.duration),
+                                           of: movieAsset.tracks(withMediaType: AVMediaType.video)[0],
+                                           at: .zero)
+        } catch {
+            handleError()
+            return
+        }
+        
+        if let loadedAudioAsset = audioAsset {
+            let audioTrack = mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: 0)
+            do {
+                try audioTrack?.insertTimeRange(CMTimeRangeMake(start: .zero,
+                                                                duration: movieAsset.duration),
+                                                of: loadedAudioAsset.tracks(withMediaType: AVMediaType.audio)[0] ,
+                                                at: .zero)
+            } catch {
+                handleError()
+                return
+            }
+        }
+        
+        self.movieAsset = mixComposition
+        updatePlayer()
+    }
+    
+    private func handleError(title: String = "Video processing error", message: String = "Please, try again") {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction private func addVideoTapped(_ sender: Any) {
         present(imagePickerController, animated: true, completion: nil)
+    }
+    @IBAction private func addMusicTapped(_ sender: Any) {
+        present(mediaPicker, animated: true, completion: {})
     }
 }
 
@@ -129,19 +197,11 @@ extension MainViewController: UICollectionViewDataSource {
 
 extension MainViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         if let url = info[.mediaURL] as? URL {
-            player?.pause()
-            playerLayer?.removeFromSuperlayer()
             movieURL = url
             movieAsset = AVURLAsset(url: url)
-            playerItem = AVPlayerItem(asset: movieAsset!)
-            player = AVPlayer(playerItem: playerItem)
-            gpuMovie = GPUImageMovie(playerItem: playerItem)
-            gpuMovie?.removeAllTargets()
-            gpuMovie?.addTarget(playerView)
-            gpuMovie?.startProcessing()
-            player?.play()
+            checkedCell = nil
+            updatePlayer()
             noVideoLabel.alpha = 0
             playerView.backgroundColor = .clear
             setupLayout(hideElements: false)
@@ -151,3 +211,20 @@ extension MainViewController: UIImagePickerControllerDelegate & UINavigationCont
     }
 }
 
+extension MainViewController: MPMediaPickerControllerDelegate {
+    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+        dismiss(animated: true) {
+            guard let song = mediaItemCollection.items.first,
+                let url = song.value(forProperty: MPMediaItemPropertyAssetURL) as? URL else {
+                    self.handleError(title: "This song is not available", message: "Please, choose another song")
+                    return
+            }
+            self.audioAsset = AVAsset(url: url)
+            self.addAudio()
+        }
+    }
+    
+    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}

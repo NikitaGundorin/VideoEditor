@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app uses your media library to load song.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app uses your photo library to load video for editing.</string>
 	<key>CFBundleDevelopmentRegion</key>
