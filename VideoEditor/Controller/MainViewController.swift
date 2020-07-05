@@ -183,7 +183,7 @@ class MainViewController: UIViewController {
             handleError()
             return
         }
-        let completionBlock = { (outputURL: URL?) in
+        let completionBlock = { [unowned self] (outputURL: URL?) in
             DispatchQueue.main.async {
                 if let url = outputURL {
                     let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
