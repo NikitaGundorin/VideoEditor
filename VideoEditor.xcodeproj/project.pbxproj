@@ -12,6 +12,7 @@
 		7272423224B0C969001B3AE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7272423024B0C969001B3AE3 /* Main.storyboard */; };
 		7272423424B0C96C001B3AE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7272423324B0C96C001B3AE3 /* Assets.xcassets */; };
 		7272423724B0C96C001B3AE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7272423524B0C96C001B3AE3 /* LaunchScreen.storyboard */; };
+		72A53EB124B20CE7002196AB /* EmptyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A53EB024B20CE7002196AB /* EmptyFilter.swift */; };
 		72D943E424B0E8E000BF7E4C /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D943E324B0E8E000BF7E4C /* GPUImage.framework */; };
 		72D943E624B0E8F800BF7E4C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D943E524B0E8F800BF7E4C /* Filter.swift */; };
 		72D943E824B0F12100BF7E4C /* FiltersFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D943E724B0F12100BF7E4C /* FiltersFabric.swift */; };
@@ -28,6 +29,7 @@
 		7272423324B0C96C001B3AE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7272423624B0C96C001B3AE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7272423824B0C96C001B3AE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72A53EB024B20CE7002196AB /* EmptyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFilter.swift; sourceTree = "<group>"; };
 		72D943E324B0E8E000BF7E4C /* GPUImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GPUImage.framework; path = Carthage/Build/iOS/GPUImage.framework; sourceTree = "<group>"; };
 		72D943E524B0E8F800BF7E4C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		72D943E724B0F12100BF7E4C /* FiltersFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersFabric.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				72D943E524B0E8F800BF7E4C /* Filter.swift */,
 				72D943E924B0F17700BF7E4C /* BaseFilter.swift */,
 				72D943EB24B0F20D00BF7E4C /* GroupFilter.swift */,
+				72A53EB024B20CE7002196AB /* EmptyFilter.swift */,
 				72D943E724B0F12100BF7E4C /* FiltersFabric.swift */,
 			);
 			path = Model;
@@ -217,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72D943EE24B1136F00BF7E4C /* FilterCell.swift in Sources */,
+				72A53EB124B20CE7002196AB /* EmptyFilter.swift in Sources */,
 				7272422F24B0C969001B3AE3 /* MainViewController.swift in Sources */,
 				72D943E624B0E8F800BF7E4C /* Filter.swift in Sources */,
 				72D943E824B0F12100BF7E4C /* FiltersFabric.swift in Sources */,

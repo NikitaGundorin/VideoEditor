@@ -10,22 +10,21 @@ import GPUImage
 
 class GroupFilter: Filter {
     let name: String
-    private var gpuFilters: [GPUImageOutput]
+    private let generateGpuFilters: () -> [GPUImageFilter]
+    private let gpuFilters: [GPUImageOutput]
+    private var movieOutput: GPUImageMovieWriter!
+    private var exportMovie: GPUImageMovie!
     
-    init(name: String, gpuFilters: [GPUImageOutput]) {
-        for (i, filter) in gpuFilters.enumerated() {
-            if (i == gpuFilters.count - 1) { break }
-            filter.addTarget(gpuFilters[i + 1] as? GPUImageInput)
-        }
-
-        self.gpuFilters = gpuFilters
+    init(name: String, generateGpuFilters: @escaping () -> [GPUImageFilter]) {
+        self.gpuFilters = generateGpuFilters()
+        self.generateGpuFilters = generateGpuFilters
         self.name = name
     }
     
     func apply(forImage image: UIImage?) -> UIImage? {
         guard let inputImage = image,
             let picture = GPUImagePicture(image: inputImage)
-        else { return image }
+            else { return image }
         
         picture.addTarget(gpuFilters.first as? GPUImageInput)
         picture.processImage()
@@ -36,13 +35,20 @@ class GroupFilter: Filter {
     
     func apply(forVideo gpuMovie: GPUImageMovie, withVideoView videoView: GPUImageView) {
         gpuMovie.removeAllTargets()
-        for (i, filter) in gpuFilters.enumerated() {
-            if (i == gpuFilters.count - 1) { break }
-            filter.addTarget(gpuFilters[i + 1] as? GPUImageInput)
-        }
+        gpuFilters.last?.removeAllTargets()
         gpuFilters.last?.addTarget(videoView as GPUImageInput)
         gpuMovie.addTarget(gpuFilters.first as? GPUImageInput)
         gpuMovie.playAtActualSpeed = true
         gpuMovie.startProcessing()
+    }
+    
+    func prepareExport(movieOutput: GPUImageMovieWriter, exportMovie: GPUImageMovie) {
+        self.movieOutput = movieOutput
+        self.exportMovie = exportMovie
+        
+        let filters = generateGpuFilters()
+        
+        exportMovie.addTarget(filters.first)
+        filters.last?.addTarget(movieOutput)
     }
 }

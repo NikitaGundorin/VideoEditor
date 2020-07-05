@@ -10,11 +10,15 @@ import GPUImage
 
 class BaseFilter: Filter {
     let name: String
-    private let gpuFilter: GPUImageOutput
+    private let generateGpuFilter: () -> GPUImageFilter
+    private let gpuFilter: GPUImageFilter
+    private var movieOutput: GPUImageMovieWriter!
+    private var exportMovie: GPUImageMovie!
     
-    init(name: String, gpuFilter: GPUImageOutput) {
+    init(name: String, generateGpuFilter: @escaping () -> GPUImageFilter) {
         self.name = name
-        self.gpuFilter = gpuFilter
+        self.generateGpuFilter = generateGpuFilter
+        self.gpuFilter = generateGpuFilter()
     }
     
     func apply(forImage image: UIImage?) -> UIImage? {
@@ -23,9 +27,20 @@ class BaseFilter: Filter {
     
     func apply(forVideo gpuMovie: GPUImageMovie, withVideoView videoView: GPUImageView) {
         gpuMovie.removeAllTargets()
+        gpuFilter.removeAllTargets()
         gpuFilter.addTarget(videoView as GPUImageInput)
-        gpuMovie.addTarget(gpuFilter as? GPUImageInput)
+        gpuMovie.addTarget(gpuFilter)
         gpuMovie.playAtActualSpeed = true
         gpuMovie.startProcessing()
+    }
+    
+    func prepareExport(movieOutput: GPUImageMovieWriter, exportMovie: GPUImageMovie) {
+        self.movieOutput = movieOutput
+        self.exportMovie = exportMovie
+        
+        let filter = generateGpuFilter()
+        
+        exportMovie.addTarget(filter)
+        filter.addTarget(movieOutput)
     }
 }

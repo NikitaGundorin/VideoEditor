@@ -20,6 +20,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xg8-vw-5eY">
                                 <rect key="frame" x="363" y="44" width="31" height="31"/>
                                 <state key="normal" image="export"/>
+                                <connections>
+                                    <action selector="shareButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W8E-mb-jtG"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkG-Zh-lGr" customClass="GPUImageView">
                                 <rect key="frame" x="0.0" y="95" width="414" height="433"/>

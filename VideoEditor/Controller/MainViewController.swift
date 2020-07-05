@@ -36,6 +36,18 @@ class MainViewController: UIViewController {
         mpc.delegate = self
         return mpc
     }()
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView(style: .whiteLarge)
+        ai.alpha = 0
+        view.addSubview(ai)
+        ai.translatesAutoresizingMaskIntoConstraints = false
+        ai.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        ai.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        ai.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        ai.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        ai.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7490635702)
+        return ai
+    }()
     private var movieURL: URL?
     private var movieAsset: AVAsset?
     private var audioAsset: AVAsset?
@@ -44,6 +56,7 @@ class MainViewController: UIViewController {
     private var playerLayer: AVPlayerLayer?
     private var gpuMovie: GPUImageMovie?
     private var filters = FiltersFabric.getFilters()
+    private var emptyFilter = EmptyFilter()
     private var previewImage = UIImage(named: "example")
     private lazy var previewImages = [UIImage?](repeating: UIImage(), count: filters.count)
     private var checkedCell: IndexPath?
@@ -157,6 +170,36 @@ class MainViewController: UIViewController {
     }
     @IBAction private func addMusicTapped(_ sender: Any) {
         present(mediaPicker, animated: true, completion: {})
+    }
+    private var movieOutput: GPUImageMovieWriter!
+    private var exportMovie: GPUImageMovie!
+    
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        shareButton.isEnabled = false
+        guard let movieAsset = movieAsset else {
+            handleError()
+            return
+        }
+        let completionBlock = { (outputURL: URL?) in
+            DispatchQueue.main.async {
+                if let url = outputURL {
+                    let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                    self.present(activityViewController, animated: true, completion: nil)
+                } else {
+                    self.handleError()
+                }
+                self.shareButton.isEnabled = true
+                self.activityIndicator.alpha = 0
+                self.activityIndicator.stopAnimating()
+            }
+        }
+        activityIndicator.startAnimating()
+        activityIndicator.alpha = 1
+        if let indexPath = checkedCell {
+            filters[indexPath.item].export(asset: movieAsset, completion: completionBlock)
+        } else {
+            emptyFilter.export(asset: movieAsset, completion: completionBlock)
+        }
     }
 }
 
