@@ -1,0 +1,9 @@
+/* Privacy - Media Library Usage Description */
+"NSAppleMusicUsageDescription" = "Приложение использует музыкальную библиотеку для загрузки песен.";
+
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "Приложение использует фотопленку для сохранения обработанного видео.";
+
+/* Privacy - Photo Library Usage Description */
+"NSPhotoLibraryUsageDescription" = "Приложение использует фотопленку для загрузки видео для обработки.";
+

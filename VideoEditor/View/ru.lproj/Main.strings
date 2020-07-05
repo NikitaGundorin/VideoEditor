@@ -1,0 +1,15 @@
+/* Class = "UIButton"; normalTitle = "Add video"; ObjectID = "0RI-Np-9pE"; */
+"0RI-Np-9pE.normalTitle" = "Добавить видео";
+
+/* Class = "UILabel"; text = "F1"; ObjectID = "bjQ-OE-8jV"; */
+"bjQ-OE-8jV.text" = "F1";
+
+/* Class = "UILabel"; text = "Choose filter"; ObjectID = "isn-ri-wPY"; */
+"isn-ri-wPY.text" = "Выберите фильтр";
+
+/* Class = "UILabel"; text = "No video selected"; ObjectID = "Rho-P9-kpr"; */
+"Rho-P9-kpr.text" = "Видео не выбрано";
+
+/* Class = "UIButton"; normalTitle = "Add music"; ObjectID = "X7U-MS-lVd"; */
+"X7U-MS-lVd.normalTitle" = "Выбрать музыку";
+

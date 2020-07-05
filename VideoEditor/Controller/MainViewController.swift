@@ -159,7 +159,10 @@ class MainViewController: UIViewController {
         updatePlayer()
     }
     
-    private func handleError(title: String = "Video processing error", message: String = "Please, try again") {
+    private func handleError(title: String = NSLocalizedString("Video processing error",
+                                                               comment: "error alert title"),
+                             message: String = NSLocalizedString("Please, try again",
+                                                                 comment: "error alert message")) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -259,7 +262,9 @@ extension MainViewController: MPMediaPickerControllerDelegate {
         dismiss(animated: true) {
             guard let song = mediaItemCollection.items.first,
                 let url = song.value(forProperty: MPMediaItemPropertyAssetURL) as? URL else {
-                    self.handleError(title: "This song is not available", message: "Please, choose another song")
+                    let title = NSLocalizedString("This song is not available", comment: "song error alert title")
+                    let message = NSLocalizedString("Please, choose another song", comment: "song error alert message")
+                    self.handleError(title: title, message: message)
                     return
             }
             self.audioAsset = AVAsset(url: url)

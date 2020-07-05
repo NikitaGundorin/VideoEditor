@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="VideoEditor/Supporting Files/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.5" build-num="11E608c"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>VideoEditor</source>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSAppleMusicUsageDescription" xml:space="preserve">
+        <source>This app uses your media library to load song.</source>
+        <target>Приложение использует музыкальную библиотеку для загрузки песен.</target>
+        <note>Privacy - Media Library Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
+        <source>This app uses your photo library to save edited video.</source>
+        <target>Приложение использует фотопленку для сохранения обработанного видео.</target>
+        <note>Privacy - Photo Library Additions Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSPhotoLibraryUsageDescription" xml:space="preserve">
+        <source>This app uses your photo library to load video for editing.</source>
+        <target>Приложение использует фотопленку для загрузки видео для обработки.</target>
+        <note>Privacy - Photo Library Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="VideoEditor/Supporting Files/en.lproj/Localizable.strings" datatype="plaintext" source-language="en" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.5" build-num="11E608c"/>
+    </header>
+    <body>
+      <trans-unit id="Please, choose another song" xml:space="preserve">
+        <source>Please, choose another song</source>
+        <target>Пожалуйста, выберите другую песню</target>
+        <note>song error alert message</note>
+      </trans-unit>
+      <trans-unit id="Please, try again" xml:space="preserve">
+        <source>Please, try again</source>
+        <target>Пожалуйста, попробуйте ещё раз</target>
+        <note>error alert message</note>
+      </trans-unit>
+      <trans-unit id="This song is not available" xml:space="preserve">
+        <source>This song is not available</source>
+        <target>Эта песня недоступна</target>
+        <note>song error alert title</note>
+      </trans-unit>
+      <trans-unit id="Video processing error" xml:space="preserve">
+        <source>Video processing error</source>
+        <target>Ошибка обработки видео</target>
+        <note>error alert title</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="VideoEditor/View/Base.lproj/LaunchScreen.storyboard" datatype="plaintext" source-language="en" target-language="ru">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.5" build-num="11E608c"/>
+    </header>
+    <body>
+      <trans-unit id="GnC-rf-kgJ.text" xml:space="preserve">
+        <source>Video editor</source>
+        <note>Class = "UILabel"; text = "Video editor"; ObjectID = "GnC-rf-kgJ";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="VideoEditor/View/Base.lproj/Main.storyboard" source-language="en" target-language="ru" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="11.5" build-num="11E608c"/>
+    </header>
+    <body>
+      <trans-unit id="0RI-Np-9pE.normalTitle" xml:space="preserve">
+        <source>Add video</source>
+        <target>Добавить видео</target>
+        <note>Class = "UIButton"; normalTitle = "Add video"; ObjectID = "0RI-Np-9pE";</note>
+      </trans-unit>
+      <trans-unit id="Rho-P9-kpr.text" xml:space="preserve">
+        <source>No video selected</source>
+        <target>Видео не выбрано</target>
+        <note>Class = "UILabel"; text = "No video selected"; ObjectID = "Rho-P9-kpr";</note>
+      </trans-unit>
+      <trans-unit id="X7U-MS-lVd.normalTitle" xml:space="preserve">
+        <source>Add music</source>
+        <target>Выбрать музыку</target>
+        <note>Class = "UIButton"; normalTitle = "Add music"; ObjectID = "X7U-MS-lVd";</note>
+      </trans-unit>
+      <trans-unit id="bjQ-OE-8jV.text" xml:space="preserve">
+        <source>F1</source>
+        <target>F1</target>
+        <note>Class = "UILabel"; text = "F1"; ObjectID = "bjQ-OE-8jV";</note>
+      </trans-unit>
+      <trans-unit id="isn-ri-wPY.text" xml:space="preserve">
+        <source>Choose filter</source>
+        <target>Выберите фильтр</target>
+        <note>Class = "UILabel"; text = "Choose filter"; ObjectID = "isn-ri-wPY";</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
