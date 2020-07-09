@@ -14,6 +14,9 @@
 		7272423224B0C969001B3AE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7272423024B0C969001B3AE3 /* Main.storyboard */; };
 		7272423424B0C96C001B3AE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7272423324B0C96C001B3AE3 /* Assets.xcassets */; };
 		7272423724B0C96C001B3AE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7272423524B0C96C001B3AE3 /* LaunchScreen.storyboard */; };
+		72A0685124B3ACB200ACE462 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A0685024B3ACB200ACE462 /* PlayerService.swift */; };
+		72A0685424B3B7E000ACE462 /* PlayerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A0685324B3B7E000ACE462 /* PlayerServiceProtocol.swift */; };
+		72A0685724B46C8900ACE462 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A0685624B46C8900ACE462 /* FiltersView.swift */; };
 		72A53EB124B20CE7002196AB /* EmptyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A53EB024B20CE7002196AB /* EmptyFilter.swift */; };
 		72D943E424B0E8E000BF7E4C /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D943E324B0E8E000BF7E4C /* GPUImage.framework */; };
 		72D943E624B0E8F800BF7E4C /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D943E524B0E8F800BF7E4C /* Filter.swift */; };
@@ -34,6 +37,9 @@
 		7272423324B0C96C001B3AE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7272423624B0C96C001B3AE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7272423824B0C96C001B3AE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72A0685024B3ACB200ACE462 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
+		72A0685324B3B7E000ACE462 /* PlayerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerServiceProtocol.swift; sourceTree = "<group>"; };
+		72A0685624B46C8900ACE462 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		72A53EB024B20CE7002196AB /* EmptyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFilter.swift; sourceTree = "<group>"; };
 		72D943E324B0E8E000BF7E4C /* GPUImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GPUImage.framework; path = Carthage/Build/iOS/GPUImage.framework; sourceTree = "<group>"; };
 		72D943E524B0E8F800BF7E4C /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -75,6 +81,7 @@
 		7272422924B0C969001B3AE3 /* VideoEditor */ = {
 			isa = PBXGroup;
 			children = (
+				72A0685224B3ACB600ACE462 /* Service */,
 				72D943D124B0E56700BF7E4C /* Model */,
 				7272425324B0D364001B3AE3 /* View */,
 				7272425424B0D36D001B3AE3 /* Controller */,
@@ -89,6 +96,7 @@
 				7272423524B0C96C001B3AE3 /* LaunchScreen.storyboard */,
 				7272423024B0C969001B3AE3 /* Main.storyboard */,
 				72D943ED24B1136F00BF7E4C /* FilterCell.swift */,
+				72A0685624B46C8900ACE462 /* FiltersView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -111,6 +119,15 @@
 				72424F4524B232200017562E /* InfoPlist.strings */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		72A0685224B3ACB600ACE462 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				72A0685024B3ACB200ACE462 /* PlayerService.swift */,
+				72A0685324B3B7E000ACE462 /* PlayerServiceProtocol.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		72D943D124B0E56700BF7E4C /* Model */ = {
@@ -233,9 +250,12 @@
 				72A53EB124B20CE7002196AB /* EmptyFilter.swift in Sources */,
 				7272422F24B0C969001B3AE3 /* MainViewController.swift in Sources */,
 				72D943E624B0E8F800BF7E4C /* Filter.swift in Sources */,
+				72A0685424B3B7E000ACE462 /* PlayerServiceProtocol.swift in Sources */,
 				72D943E824B0F12100BF7E4C /* FiltersFabric.swift in Sources */,
+				72A0685724B46C8900ACE462 /* FiltersView.swift in Sources */,
 				72D943EA24B0F17700BF7E4C /* BaseFilter.swift in Sources */,
 				7272422B24B0C969001B3AE3 /* AppDelegate.swift in Sources */,
+				72A0685124B3ACB200ACE462 /* PlayerService.swift in Sources */,
 				72D943EC24B0F20D00BF7E4C /* GroupFilter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
