@@ -58,10 +58,6 @@ class MainViewController: UIViewController {
         filtersView.setup(with: playerService)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     private func setupLayout(hideElements: Bool = true) {
         let alpha: CGFloat = hideElements ? 0 : 1
         shareButton.alpha = alpha
@@ -110,6 +106,7 @@ extension MainViewController: UIImagePickerControllerDelegate & UINavigationCont
             playerService.movieURL = url
             noVideoLabel.alpha = 0
             playerView.backgroundColor = .clear
+            playerView.setBackgroundColorRed(0, green: 0, blue: 0, alpha: 0)
             setupLayout(hideElements: false)
             filtersView.update()
         }
